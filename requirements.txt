@@ -1,0 +1,16 @@
+# GUI框架
+PyQt5>=5.15.0
+
+# 网络请求
+requests==2.31.0
+websocket-client==1.7.0
+
+# Protocol Buffers
+betterproto==2.0.0b6
+
+# JavaScript执行引擎
+PyExecJS==1.5.1
+mini_racer==0.12.4
+
+# 其他工具
+typing-extensions>=4.0.0
