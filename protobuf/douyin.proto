@@ -1,0 +1,591 @@
+syntax = "proto3";
+
+package douyin;
+
+// 响应消息
+message Response {
+    repeated Message messages = 1;
+    string cursor = 2;
+    int64 fetchInterval = 3;
+    int64 now = 4;
+    string internalExt = 5;
+    int32 fetchType = 6;
+    map<string, string> routeParams = 7;
+    int64 heartbeatDuration = 8;
+    bool needAck = 9;
+    string pushServer = 10;
+    string liveCursor = 11;
+    bool historyNoMore = 12;
+}
+
+// 基础消息
+message Message {
+    string method = 1;
+    bytes payload = 2;
+    int64 msgId = 3;
+    int32 msgType = 4;
+    int64 offset = 5;
+    bool needWrdsStore = 6;
+    int64 wrdsVersion = 7;
+    string wrdsSubKey = 8;
+}
+
+// 表情聊天消息
+message EmojiChatMessage {
+    User user = 1;
+    string content = 2;
+    bool visibleToSender = 3;
+    Image backgroundImage = 4;
+    Image fullScreenTextColor = 5;
+    Image backgroundImageV2 = 6;
+    PublicAreaCommon publicAreaCommon = 7;
+    Image giftImage = 8;
+    bool agreeMsgId = 9;
+    int64 colorValueList = 10;
+    repeated EmojiDetails emojiDetailsList = 11;
+    User user2 = 12;
+    LandscapeAreaCommon landscapeAreaCommon = 13;
+    int64 terminalType = 14;
+    repeated Image chatBy = 15;
+    int64 individualChatPriority = 16;
+    RtfContent rtfContent = 17;
+}
+
+// 聊天消息
+message ChatMessage {
+    User user = 1;
+    string content = 2;
+    bool visibleToSender = 3;
+    Image backgroundImage = 4;
+    string fullScreenTextColor = 5;
+    Image backgroundImageV2 = 6;
+    PublicAreaCommon publicAreaCommon = 7;
+    Image giftImage = 8;
+    int64 agreeMsgId = 9;
+    int64 priorityLevel = 10;
+    LandscapeAreaCommon landscapeAreaCommon = 11;
+    repeated Image chatBy = 12;
+    int64 individualChatPriority = 13;
+    RtfContent rtfContent = 14;
+    int32 chatType = 15;
+    SubGiftBroadcastMessage subGiftBroadcastMessage = 16;
+    int64 eventTime = 17;
+    bool sendReview = 18;
+    bool fromIntercom = 19;
+    bool intercomHideUserCard = 20;
+    string chatSubType = 21;
+    repeated Image colorValueList = 22;
+    int64 anchorFoldType = 23;
+    int64 anchorFoldDuration = 24;
+    WebcastChatMessage webcastChatMessage = 25;
+}
+
+// 房间用户序列消息
+message RoomUserSeqMessage {
+    PublicAreaCommon publicAreaCommon = 1;
+    repeated RoomUserSeqMessageContributor contributors = 2;
+    int64 total = 3;
+    string popStr = 4;
+    repeated SeatsInfo seats = 5;
+    int64 popularity = 6;
+    int64 totalUser = 7;
+    string totalUserStr = 8;
+    string totalStr = 9;
+    string onlineUserForAnchor = 10;
+    string totalPvForAnchor = 11;
+    string upSecFromStart = 12;
+    string totalPv = 13;
+    string fanTicketCount = 14;
+    int64 timestamp = 15;
+    repeated RankContainer ranks = 16;
+}
+
+// 礼物消息
+message GiftMessage {
+    PublicAreaCommon publicAreaCommon = 1;
+    int64 giftId = 2;
+    int64 fanTicketCount = 3;
+    int64 groupCount = 4;
+    int64 repeatCount = 5;
+    int64 comboCount = 6;
+    User user = 7;
+    User toUser = 8;
+    int64 repeatEnd = 9;
+    int64 textEffect = 10;
+    int64 groupId = 11;
+    int64 incomeTaskgifts = 12;
+    int64 roomFanTicketCount = 13;
+    Image icon = 14;
+    string describe = 15;
+    GiftIMMessage giftIMMessage = 16;
+    repeated GiftBroadcastMessage dmgf = 17;
+    GiftExtra giftExtra = 18;
+    int64 logId = 19;
+    int64 sendType = 20;
+    PublicAreaCommon publicAreaCommonForAnchor = 21;
+    PublicAreaCommon publicAreaCommonForAssistant = 22;
+    int64 monitorExtra = 23;
+    int64 anchoroldLevel = 24;
+    int64 foldGiftInfo = 25;
+    int64 colorId = 26;
+    int64 isFirstSent = 27;
+    int64 combo = 28;
+    string giftName = 29;
+    int64 totalCoin = 30;
+    Image giftPictureNew = 31;
+    int64 receiverUserId = 32;
+    int64 giftType = 33;
+    int64 isSpecialGift = 34;
+    int64 specialGiftInfo = 35;
+    int64 trayDisplayText = 36;
+    int64 bannedDisplayInfo = 37;
+    GiftTrayInfo giftTrayInfo = 38;
+    int64 diyItemInfo = 39;
+    int64 starGiftInfo = 40;
+    int64 giftTraceId = 41;
+}
+
+// 点赞消息
+message LikeMessage {
+    PublicAreaCommon publicAreaCommon = 1;
+    int64 count = 2;
+    int64 total = 3;
+    int64 color = 4;
+    User user = 5;
+    Image icon = 6;
+    string doubleClick = 7;
+    bool isDoubleClick = 8;
+    LandscapeAreaCommon landscapeAreaCommon = 9;
+    int64 scene = 10;
+}
+
+// 成员消息
+message MemberMessage {
+    PublicAreaCommon publicAreaCommon = 1;
+    User user = 2;
+    int64 memberCount = 3;
+    User operator = 4;
+    bool isSetToAdmin = 5;
+    bool isTopUser = 6;
+    int64 rankScore = 7;
+    int64 topUserNo = 8;
+    int64 enterType = 9;
+    int64 action = 10;
+    string actionDescription = 11;
+    int64 userId = 12;
+    EffectConfig effectConfig = 13;
+    string popStr = 14;
+    EnterEffectConfig enterEffectConfig = 15;
+    Image backgroundImage = 16;
+    Image backgroundImageV2 = 17;
+    string anchorDisplayText = 18;
+    LandscapeAreaCommon landscapeAreaCommon = 19;
+    int64 enterPromptType = 20;
+    string enterPromptTypeToast = 21;
+    int64 anchorEnterPromptType = 22;
+    string anchorEnterPromptTypeToast = 23;
+}
+
+// 社交消息
+message SocialMessage {
+    PublicAreaCommon publicAreaCommon = 1;
+    User user = 2;
+    int64 shareType = 3;
+    int64 action = 4;
+    string shareTarget = 5;
+    int64 followCount = 6;
+    PublicAreaCommon publicAreaCommonForAnchor = 7;
+    string shareContent = 8;
+}
+
+// 房间通知消息
+message RoomNotifyMessage {
+    int64 type = 1;
+    PublicAreaCommon publicAreaCommon = 2;
+    int64 roomId = 3;
+}
+
+// 控制消息
+message ControlMessage {
+    int64 status = 1;
+    PublicAreaCommon publicAreaCommon = 2;
+}
+
+// 用户信息
+message User {
+    int64 id = 1;
+    int64 shortId = 2;
+    string nickname = 3;
+    int32 gender = 4;
+    string signature = 5;
+    int32 level = 6;
+    int64 birthday = 7;
+    string telephone = 8;
+    Image avatarThumb = 9;
+    Image avatarMedium = 10;
+    Image avatarLarge = 11;
+    bool verified = 12;
+    int32 experience = 13;
+    string city = 14;
+    int32 status = 15;
+    int64 createTime = 16;
+    int64 modifyTime = 17;
+    int32 secret = 18;
+    string shareQrcodeUri = 19;
+    int32 incomeSharePercent = 20;
+    Image badgeImageList = 21;
+    bool followInfo = 22;
+    PayGrade payGrade = 23;
+    FansClub fansClub = 24;
+    Border border = 25;
+    string specialId = 26;
+    Image avatarBorder = 27;
+    Image medal = 28;
+    repeated Image realTimeIcons = 29;
+    Image newRealTimeIcons = 30;
+    int64 topVipNo = 31;
+    UserAttr userAttr = 32;
+    string ownRoom = 33;
+    int64 payScore = 34;
+    int64 ticketCount = 35;
+    int64 anchorInfo = 36;
+    int64 linkMicStats = 37;
+    string displayId = 38;
+    repeated Image badgeList = 39;
+    string uniqueId = 40;
+    string secUid = 41;
+    int64 followersDetail = 42;
+    int64 totalRechargeValue = 43;
+}
+
+// 图片信息
+message Image {
+    repeated string urlList = 1;
+    string uri = 2;
+    int64 height = 3;
+    int64 width = 4;
+    string avgColor = 5;
+    int32 imageType = 6;
+    string openWebUrl = 7;
+    ImageContent content = 8;
+    bool isAnimated = 9;
+    FlexSettingArray flexSettingArray = 10;
+    string textSettingArray = 11;
+}
+
+// 图片内容
+message ImageContent {
+    string name = 1;
+    string fontColor = 2;
+    int64 level = 3;
+    string alternativeText = 4;
+}
+
+// 弹性设置数组
+message FlexSettingArray {
+    repeated FlexSetting settings = 1;
+}
+
+// 弹性设置
+message FlexSetting {
+    string key = 1;
+    string value = 2;
+}
+
+// 付费等级
+message PayGrade {
+    int64 totalDiamondCount = 1;
+    Image diamondIcon = 2;
+    string name = 3;
+    Image icon = 4;
+    string nextName = 5;
+    int64 level = 6;
+    Image nextIcon = 7;
+    int64 nextDiamond = 8;
+    int64 nowDiamond = 9;
+    int64 thisGradeMinDiamond = 10;
+    int64 thisGradeMaxDiamond = 11;
+    int64 payDiamondBak = 12;
+    string gradeDescribe = 13;
+    repeated GradeIcon gradeIconList = 14;
+    int64 screenChatType = 15;
+    repeated Image imIcon = 16;
+    Image imIconWithLevel = 17;
+    Image liveIcon = 18;
+    Image newImIconWithLevel = 19;
+    Image newLiveIcon = 20;
+    int64 upgradeNeedConsume = 21;
+    string nextPrivileges = 22;
+    Image background = 23;
+    Image backgroundBack = 24;
+    int64 score = 25;
+    int64 buffInfo = 26;
+    string gradeBanner = 27;
+    repeated Image profileDialogBg = 28;
+    repeated Image profileDialogBgBack = 29;
+}
+
+// 等级图标
+message GradeIcon {
+    int64 iconType = 1;
+    Image icon = 2;
+    int64 iconDiamond = 3;
+    int64 level = 4;
+    string levelStr = 5;
+}
+
+// 粉丝俱乐部
+message FansClub {
+    FansClubData data = 1;
+    map<string, string> preferData = 2;
+}
+
+// 粉丝俱乐部数据
+message FansClubData {
+    string clubName = 1;
+    int32 level = 2;
+    int32 userFansClubStatus = 3;
+    repeated Image userBadges = 4;
+    int64 anchorId = 5;
+}
+
+// 边框
+message Border {
+    Image borderIcon = 1;
+    string borderDynamicEffect = 2;
+    string borderSetToast = 3;
+}
+
+// 用户属性
+message UserAttr {
+    bool isAdmin = 1;
+    bool isGuest = 2;
+    bool isSuperAdmin = 3;
+}
+
+// 公共区域通用
+message PublicAreaCommon {
+    Image userLabel = 1;
+    string userConsumeInRoom = 2;
+    int64 userSendGiftCntInRoom = 3;
+    string scene = 4;
+    int64 liveId = 5;
+    int64 msgId = 6;
+    int64 timestamp = 7;
+    bool anchorFoldType = 8;
+    int64 anchorFoldDuration = 9;
+    int64 processAtSeiTimeMs = 10;
+    int64 randomDispatchMs = 11;
+    bool isShowMsg = 12;
+    repeated Image userLabelIcons = 13;
+    string userConsumeInRoomStr = 14;
+    string userSendGiftCntInRoomStr = 15;
+    string anchorFoldTypeStr = 16;
+    string anchorFoldDurationStr = 17;
+    string processAtSeiTimeMsStr = 18;
+    string randomDispatchMsStr = 19;
+}
+
+// 横屏区域通用
+message LandscapeAreaCommon {
+    bool showHead = 1;
+    bool showLandscape = 2;
+    bool landscapeFullScreen = 3;
+}
+
+// 表情详情
+message EmojiDetails {
+    Image emojiIcon = 1;
+    string emojiId = 2;
+    User user = 3;
+}
+
+// RTF内容
+message RtfContent {
+    string text = 1;
+    repeated RtfTextPiece pieces = 2;
+}
+
+// RTF文本片段
+message RtfTextPiece {
+    int32 type = 1;
+    RtfTextFormat format = 2;
+    string stringValue = 3;
+    RtfTextUserInfo userInfo = 4;
+}
+
+// RTF文本格式
+message RtfTextFormat {
+    string color = 1;
+    bool bold = 2;
+    bool italic = 3;
+    int32 fontSize = 4;
+    bool useHeighLight = 5;
+    string heighLightColor = 6;
+    Image italicIcon = 7;
+    int32 weight = 8;
+}
+
+// RTF文本用户信息
+message RtfTextUserInfo {
+    User user = 1;
+    string withColon = 2;
+}
+
+// 子礼物广播消息
+message SubGiftBroadcastMessage {
+    repeated SubGiftBroadcastMessageSubGiftList subGiftList = 1;
+}
+
+// 子礼物广播消息子礼物列表
+message SubGiftBroadcastMessageSubGiftList {
+    Image icon = 1;
+    int64 count = 2;
+    string describe = 3;
+}
+
+// 网络聊天消息
+message WebcastChatMessage {
+    repeated Image emotes = 1;
+}
+
+// 房间用户序列消息贡献者
+message RoomUserSeqMessageContributor {
+    int64 score = 1;
+    User user = 2;
+    int64 rank = 3;
+    int64 delta = 4;
+    bool isHidden = 5;
+    int64 scoreDescription = 6;
+    int64 exactlyScore = 7;
+}
+
+// 座位信息
+message SeatsInfo {
+    bool canAudience = 1;
+    bool isEmpty = 2;
+    User user = 3;
+    bool locked = 4;
+    int64 seatIndex = 5;
+    int64 score = 6;
+    int64 audienceCount = 7;
+    string audienceCountStr = 8;
+    string scoreStr = 9;
+}
+
+// 排名容器
+message RankContainer {
+    int64 rankType = 1;
+    repeated RankItem ranks = 2;
+    string total = 3;
+}
+
+// 排名项目
+message RankItem {
+    User user = 1;
+    int64 score = 2;
+    int64 rank = 3;
+    string scoreStr = 4;
+    string rankStr = 5;
+}
+
+// 礼物IM消息
+message GiftIMMessage {
+    repeated GiftIMMessageGiftList giftList = 1;
+}
+
+// 礼物IM消息礼物列表
+message GiftIMMessageGiftList {
+    Image icon = 1;
+    int64 count = 2;
+    string describe = 3;
+}
+
+// 礼物广播消息
+message GiftBroadcastMessage {
+    PublicAreaCommon publicAreaCommon = 1;
+    int64 giftId = 2;
+    int64 groupCount = 3;
+    int64 groupId = 4;
+    int64 repeatCount = 5;
+    int64 repeatEnd = 6;
+    User user = 7;
+    User toUser = 8;
+    int64 roomFanTicketCount = 9;
+    int64 priority = 10;
+    string describe = 11;
+    int64 totalCoin = 12;
+    bool isShow = 13;
+    int64 bannedDisplayInfo = 14;
+    int64 effectDisplayInfo = 15;
+    int64 colorId = 16;
+    int64 isFirstSent = 17;
+    int64 notify = 18;
+    int64 duration = 19;
+    int64 wash = 20;
+    int64 drawGiftInfo = 21;
+    int64 starGiftInfo = 22;
+    int64 giftTraceId = 23;
+}
+
+// 礼物额外信息
+message GiftExtra {
+    int64 timestamp = 1;
+    string describe = 2;
+    int64 giftId = 3;
+    bool isFirstSent = 4;
+    int64 isSpecialGift = 5;
+    int64 starGiftInfo = 6;
+    int64 colorId = 7;
+    int64 giftTraceId = 8;
+}
+
+// 礼物托盘信息
+message GiftTrayInfo {
+    int64 giftSubType = 1;
+    int64 colorId = 2;
+    int64 isFirstSent = 3;
+}
+
+// 效果配置
+message EffectConfig {
+    int64 type = 1;
+    Image icon = 2;
+    int64 avatarPos = 3;
+    int64 text = 4;
+    int64 textIcon = 5;
+    int64 stayTime = 6;
+    int64 animAsset = 7;
+    Image badge = 8;
+    repeated Image flexSettingArrayList = 9;
+    Image textIconOverlay = 10;
+    Image animatedBadge = 11;
+    bool hasSweepLight = 12;
+    repeated Image textFlexSettingArrayList = 13;
+    int64 centerAnimAsset = 14;
+    int64 dynamicImage = 15;
+    int64 effectMixType = 16;
+    int64 earlyEffect = 17;
+}
+
+// 进入效果配置
+message EnterEffectConfig {
+    int64 effectType = 1;
+    Image icon = 2;
+    int64 avatarPos = 3;
+    int64 text = 4;
+    int64 duration = 5;
+    int64 priority = 6;
+    int64 maxWaitTime = 7;
+    int64 dslamDuration = 8;
+    int64 appId = 9;
+    int64 animAsset = 10;
+    Image badge = 11;
+    repeated Image flexSettingArrayList = 12;
+    Image animatedBadge = 13;
+    bool hasSweepLight = 14;
+    repeated Image textFlexSettingArrayList = 15;
+    int64 dynamicImage = 16;
+    int64 checkSum = 17;
+    int64 effectMixType = 18;
+}
